@@ -22,4 +22,7 @@ public class ProductSpecifications {
 
         return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get("title"), finalProductName);
     }
+    public static Specification<Product> categoryIdIsEqualTo(Long id) {
+        return (Specification<Product>) (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category"), id);
+    }
 }
