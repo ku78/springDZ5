@@ -31,6 +31,12 @@
             <label>Поиск товара по наименованию</label>
             <input type="text" th:value="${param.product_name != null ? param.product_name : ''}" class="form-control" name="product_name">
         </div>
+        <div>
+            <select id="category" name="category">
+                <option th:each="c : ${categories}" th:value="${c.getId()}" th:text="${c.getTitle()}"
+                        th:selected="${param.category !=null ? param.category.equals(c.getId().toString()) : false}"></option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Применить</button>
         <button type="reset" class="btn btn-primary" ><a style="color:red" th:href="@{/products}">Сбросить</a></button>
     </form>
@@ -40,6 +46,7 @@
         <thead>
         <tr>
             <td>Id</td>
+            <td>Категория</td>
             <td>Название</td>
             <td>Цена</td>
             <td>Операции</td>
@@ -49,6 +56,7 @@
 
         <tr th:each="p : ${products.getContent()}">
             <td th:text="${p.id}"></td>
+            <td th:text="${p.category.getTitle()}"></td>
             <td th:text="${p.title}"></td>
             <td th:text="${p.price}"></td>
             <td><a th:href="@{'/products/edit/' + ${p.id}}">Редактировать</a></td>

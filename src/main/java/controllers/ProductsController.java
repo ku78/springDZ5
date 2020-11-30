@@ -4,7 +4,7 @@ package controllers;
 import com.geekbrains.july.market.julymarket.entities.Product;
 import com.geekbrains.july.market.julymarket.services.ProductsService;
 import com.geekbrains.july.market.julymarket.utils.ProductFilter;
-
+import com.geekbrains.july.market.julymarket.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -29,6 +29,7 @@ public class ProductsController {
         ProductFilter productFilter = new ProductFilter(requestParams);
         Page<Product> products = productsService.findAll(productFilter.getSpec(), pageNumber);
         model.addAttribute("products", products);
+        model.addAttribute("categories", productsService.findAllCategories());
         model.addAttribute("filterDef", productFilter.getFilterDefinition().toString());
         return "all_products";
     }
